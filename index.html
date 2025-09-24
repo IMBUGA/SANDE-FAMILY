@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sande Family</title>
+  <meta name="description" content="The Sande Family website - celebrating our history, connections, and future together.">
+  <meta name="keywords" content="Sande family, family website, family tree, family reunion">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" 
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' ry='20' fill='%236B4226'/><text x='50' y='65' font-size='55' text-anchor='middle' fill='white' font-family='Arial, sans-serif'>S</text></svg>" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #6B4226;   /* Warm brown */
+      --secondary: #A47148; /* Lighter accent brown */
+      --bg: #FAF3E0;        /* Cream background */
+      --text: #2C1810;      /* Dark brown text */
+      --card-bg: #fff8f0;   /* Light beige cards */
+      --success: #4CAF50;   /* Green for success */
+      --error: #f44336;     /* Red for error */
+    }
+
+    body.dark {
+      --bg: #000000;        /* Pure black */
+      --text: #F5F5F5;      /* Off-white */
+      --card-bg: #1a1a1a;   /* Dark gray for cards */
+      --primary: #A47148;   /* Lighter brown for better contrast on black */
+      --secondary: #C19A6B; /* Lighter accent brown */
+      --success: #66BB6A;   /* Lighter green for dark mode */
+      --error: #EF5350;     /* Lighter red for dark mode */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* Preloader */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s, visibility 0.5s;
+    }
+
+    #preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader {
+      width: 80px;
+      height: 80px;
+      position: relative;
+    }
+
+    .loader-heart {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      animation: pulse 1.2s ease-in-out infinite both;
+      color: var(--primary);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.7; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.7; }
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--card-bg);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    nav {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    nav .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
+      font-weight: bold;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .search-container {
+      position: relative;
+      margin: 0 1rem;
+      flex: 0 1 300px;
+    }
+
+    .search-container input {
+      width: 100%;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: var(--card-bg);
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      max-height: 200px;
+      overflow-y: auto;
+      display: none;
+      z-index: 1001;
+    }
+
+    .search-results.active {
+      display: block;
+    }
+
+    .search-results div {
+      padding: 0.8rem;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+
+    .search-results div:hover {
+      background: var(--bg);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: bold;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    nav ul li a::after {
+      content: "";
+      width: 0;
+      height: 2px;
+      background: var(--secondary);
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    .theme-toggle {
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: transform 0.3s;
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(30deg);
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    @media(max-width: 900px){
+      .search-container {
+        display: none;
+      }
+      
+      nav ul {
+        position: absolute;
+        top: 70px;
+        left: 50%;
+        transform: translateX(-50%);
+        flex-direction: column;
+        background: var(--card-bg);
+        padding: 1.5rem;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        display: none;
+        width: 90%;
+        text-align: center;
+      }
+      nav ul.active {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    .hero {
+      background: url('images/hero.jpg') no-repeat center/cover;
+      height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+      position: relative;
+      z-index: 1;
+    }
+
+    section {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    section h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--primary);
+      font-size: clamp(1.5rem, 4vw, 2rem);
+    }
+
+    .family-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+      gap: 1.5rem;
+    }
+
+    .member {
+      background: var(--bg);
+      border-radius: 15px;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .member:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    }
+
+    .member img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      transition: transform 0.3s;
+    }
+
+    .member:hover img {
+      transform: scale(1.05);
+    }
+
+    .member h3 {
+      margin-bottom: 0.3rem;
+      color: var(--secondary);
+    }
+
+    .socials a {
+      margin: 0 5px;
+      color: var(--primary);
+      transition: 0.3s;
+    }
+
+    .socials a:hover {
+      color: var(--secondary);
+      transform: translateY(-2px);
+    }
+
+    .timeline {
+      border-left: 3px solid var(--primary);
+      padding-left: 1rem;
+    }
+
+    .event {
+      margin-bottom: 1rem;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .event::before {
+      content: '';
+      position: absolute;
+      left: -1.5rem;
+      top: 0.5rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+
+    .quote {
+      font-style: italic;
+      text-align: center;
+      margin: 1rem 0;
+      color: var(--secondary);
+      font-size: clamp(1rem, 3vw, 1.2rem);
+    }
+
+    /* Gallery Section Styles */
+    .gallery-stacks {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .gallery-stacks {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .stack {
+      background: var(--bg);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .stack:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    }
+
+    .stack-header {
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      cursor: pointer;
+    }
+
+    .stack-header h3 {
+      margin: 0;
+      color: var(--primary);
+    }
+
+    .stack-socials {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .stack-socials a {
+      color: var(--primary);
+      font-size: 1.2rem;
+      transition: all 0.3s;
+    }
+
+    .stack-socials a:hover {
+      color: var(--secondary);
+      transform: translateY(-2px);
+    }
+
+    .stack-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, padding 0.3s, opacity 0.5s ease;
+      opacity: 0;
+    }
+
+    .stack.expanded .stack-content {
+      max-height: 1000px;
+      padding: 1rem;
+      opacity: 1;
+    }
+
+    .stack-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 0.8rem;
+    }
+
+    .stack-item {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      cursor: pointer;
+    }
+
+    .stack-item img, .stack-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .stack-item.video::after {
+      content: '\f04b';
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      background: rgba(0,0,0,0.7);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .stack-item-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 0.5rem;
+      font-size: 0.8rem;
+      transform: translateY(100%);
+      transition: transform 0.3s;
+    }
+
+    .stack-item:hover .stack-item-caption {
+      transform: translateY(0);
+    }
+
+    /* Modal for media */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+    }
+
+    .modal-content img, .modal-content video {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    /* Countdown Timer */
+    .countdown-container {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .countdown-item {
+      background: var(--primary);
+      color: white;
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      min-width: 80px;
+    }
+
+    .countdown-value {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .countdown-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+    }
+
+    /* Family Tree */
+    .family-tree {
+      display: flex;
+      justify-content: center;
+      margin: 2rem 0;
+      overflow-x: auto;
+    }
+
+    .tree-level {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 1rem;
+    }
+
+    .tree-member {
+      background: var(--bg);
+      padding: 0.8rem;
+      border-radius: 10px;
+      margin: 0.5rem 0;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      min-width: 150px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .tree-member:hover {
+      background: var(--primary);
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .tree-connector {
+      width: 2px;
+      height: 30px;
+      background: var(--primary);
+      margin: 0 auto;
+    }
+
+    /* Testimonials */
+    .testimonial-container {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .testimonial-slide {
+      display: none;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .testimonial-slide.active {
+      display: block;
+      animation: fadeIn 1s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .testimonial-author {
+      font-weight: bold;
+      color: var(--secondary);
+    }
+
+    .testimonial-nav {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .testimonial-dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background: #ccc;
+      border-radius: 50%;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+
+    .testimonial-dot.active {
+      background: var(--primary);
+    }
+
+    /* Blog Section */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .blog-post {
+      background: var(--bg);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .blog-post:hover {
+      transform: translateY(-5px);
+    }
+
+    .blog-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .blog-content {
+      padding: 1.5rem;
+    }
+
+    .blog-date {
+      font-size: 0.8rem;
+      color: var(--secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .blog-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Contact Form Styles */
+    .contact-form {
+      position: relative;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      transition: border-color 0.3s;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    form input:focus, form textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    form button {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    form button:hover {
+      background: var(--secondary);
+      transform: translateY(-2px);
+    }
+
+    form button.sending {
+      pointer-events: none;
+      background: var(--secondary);
+    }
+
+    form button.sending::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border: 2px solid transparent;
+      border-top: 2px solid #fff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Notification Styles */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 2000;
+      transform: translateX(150%);
+      transition: transform 0.4s ease-in-out;
+      max-width: 300px;
+    }
+
+    .notification.show {
+      transform: translateX(0);
+    }
+
+    .notification.success {
+      background-color: var(--success);
+    }
+
+    .notification.error {
+      background-color: var(--error);
+    }
+
+    footer {
+      background: var(--card-bg);
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      margin-top: 2rem;
+      border-top: 1px solid #ccc;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .made-with-love {
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    .heart-emoji {
+      color: #ff0000; /* Red color for the heart */
+      margin: 0 2px;
+    }
+
+    #back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 12px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.3s;
+      z-index: 100;
+    }
+
+    #back-to-top:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+  </style>
+</head>
+<body>
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="loader">
+      <i class="fas fa-heart loader-heart"></i>
+    </div>
+  </div>
+
+  <header>
+    <nav>
+      <div class="logo">SANDE FAMILY</div>
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search family members, events...">
+        <div class="search-results" id="search-results"></div>
+      </div>
+      <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#family-members">Family</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#timeline">Timeline</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#quotes">Quotes</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><span class="theme-toggle"><i class="fas fa-adjust"></i></span></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Welcome to the Sande Family</h1>
+  </section>
+
+  <section id="about">
+    <h2>About Our Family</h2>
+    <p>The Sande Family: built on faith, strengthened by unity, sustained by love. A legacy of laughter, resilience, and togetherness.</p>
+  </section>
+
+  <section id="family-members">
+    <h2>Our Family Members</h2>
+    <div class="family-grid">
+      <div class="member">
+        <img src="images/OUR HEART.jpeg" alt="Family Heart" loading="lazy">
+        <h3>❤️</h3>
+        <p>The heart of our family.</p>
+      </div>
+      <div class="member">
+        <img src="images/CHESANG.jpg" alt="Chesang" loading="lazy">
+        <h3>Chesang'</h3>
+      </div>
+      <div class="member">
+        <img src="images/Martin.jpeg" alt="Martin" loading="lazy">
+        <h3>Martin</h3>
+      </div>
+      <div class="member">
+        <img src="images/v.jpeg" alt="Sophy" loading="lazy">
+        <h3>Sophy</h3>
+      </div>
+      <div class="member">
+        <img src="images/limo.jpeg" alt="Rodgers" loading="lazy">
+        <h3>Rodgers</h3>
+      </div>
+      <div class="member">
+        <img src="images/kevin.jpeg" alt="Kevin" loading="lazy">
+        <h3>Kevin</h3>
+      </div>
+      <div class="member">
+        <img src="images/w.jpeg" alt="Philip" loading="lazy">
+        <h3>Philip</h3>
+      </div>
+      <div class="member">
+        <img src="images/Chedy.jpg" alt="Chedy" loading="lazy">
+        <h3>Chedy</h3>
+      </div>
+      <div class="member">
+        <img src="images/i.jpeg" alt="Daniel" loading="lazy">
+        <h3>Daniel</h3>
+        <p>Bringing joy and laughter.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Family Tree Section -->
+  <section id="family-tree">
+    <h2>Family Tree</h2>
+    <div class="family-tree">
+      <div class="tree-level">
+        <div class="tree-member">Grandparents</div>
+        <div class="tree-connector"></div>
+        <div class="tree-member">Dad's family</div>
+        <div class="tree-connector"></div>
+        <div class="tree-member">Mum's family</div>
+      </div>
+      <div class="tree-level">
+        <div class="tree-member">Parents</div>
+        <div class="tree-connector"></div>
+        <div class="tree-member">Dad</div>
+        <div class="tree-connector"></div>
+        <div class="tree-member">Mum</div>
+        
+      </div>
+      <div class="tree-level">
+        <div class="tree-member">Chesang</div>
+        <div class="tree-member">Martin</div>
+        <div class="tree-member">Sophy</div>
+        <div class="tree-member">Rodgers</div>
+        <div class="tree-member">Kevin</div>
+        <div class="tree-member">Philip</div>
+        <div class="tree-member">Chedy</div>
+        <div class="tree-member">Daniel</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery">
+    <h2>Family Portfolio Gallery</h2>
+    <div class="gallery-stacks" id="gallery-stacks">
+      <!-- Stacks will be populated by JavaScript -->
+    </div>
+  </section>
+
+  <section id="timeline">
+    <h2>Family Timeline</h2>
+    <div class="timeline">
+      <div class="event"><strong>1958+1962:</strong> Our story begins.</div>
+      <div class="event"><strong>2022:</strong> First family reunion.</div>
+      <div class="event"><strong>2022+:</strong> Virtual connection kept us strong.</div>
+    </div>
+  </section>
+
+  <section id="events">
+    <h2>Upcoming Family Events</h2>
+    
+    <!-- Countdown Timer -->
+    <div class="countdown-container">
+      <div class="countdown-item">
+        <div class="countdown-value" id="days">00</div>
+        <div class="countdown-label">Days</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="hours">00</div>
+        <div class="countdown-label">Hours</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="minutes">00</div>
+        <div class="countdown-label">Minutes</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="seconds">00</div>
+        <div class="countdown-label">Seconds</div>
+      </div>
+    </div>
+    
+    <ul>
+      <li><strong>Nov 8, 2025:</strong> Daniel's Graduation</li>
+      <li><strong>Dec 27, 2025:</strong> Annual Family Reunion</li>
+      <li><strong>Dec 2026:</strong> Cultural Celebration</li>
+    </ul>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials">
+    <h2>Family Memories</h2>
+    <div class="testimonial-container">
+      <div class="testimonial-slide active">
+        <p class="testimonial-text">"The Sande family reunion of 2022 was unforgettable. Even though we had to connect virtually, the love and laughter filled every screen."</p>
+        <p class="testimonial-author">- Daniel</p>
+      </div>
+      <div class="testimonial-slide">
+        <p class="testimonial-text">"I'll always cherish our beach trips. Building sandcastles with the kids and watching the sunset together are my favorite memories."</p>
+        <p class="testimonial-author">- Philip</p>
+      </div>
+      <div class="testimonial-slide">
+        <p class="testimonial-text">"Our family dinners are where the best stories are told. I love hearing about everyone's adventures and sharing our own."</p>
+        <p class="testimonial-author">- Sophy</p>
+      </div>
+    </div>
+    <div class="testimonial-nav">
+      <span class="testimonial-dot active" data-slide="0"></span>
+      <span class="testimonial-dot" data-slide="1"></span>
+      <span class="testimonial-dot" data-slide="2"></span>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section id="blog">
+    <h2>Family Updates</h2>
+    <div class="blog-grid">
+      <div class="blog-post">
+        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=600&q=80" alt="Graduation Celebration" class="blog-image" loading="lazy">
+        <div class="blog-content">
+          <div class="blog-date">September 22, 2025</div>
+          <h3 class="blog-title">Graduation Plans</h3>
+          <p>We're excited to announce Reiny's & Daniel's upcoming graduation ceremony in November 7th & 8th Respectively. Save the date!</p>
+        </div>
+      </div>
+      <div class="blog-post">
+        <img src="images/oo.jpg" alt="Minions!" class="blog-image" loading="lazy">
+        <div class="blog-content">
+          <div class="blog-date">April 22, 2025</div>
+          <h3 class="blog-title">Birthday celebrations</h3>
+          <p>After years of celebrating individual birthdays, we're going to combine monthly birthdays to be celebrated as a single one!</p>
+        </div>
+      </div>
+      <div class="blog-post">
+        <img src="images/family.jpg" alt="New Family Member" class="blog-image" loading="lazy">
+        <div class="blog-content">
+          <div class="blog-date">Dec 23, 2018</div>
+          <h3 class="blog-title">Welcome to the Family!</h3>
+          <p>Children are a blessing!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="quotes">
+    <h2>Family Quotes</h2>
+    <p class="quote">"Family is not an important thing. It's everything." – Daniel Imbuga</p>
+    <p class="quote">"In every conceivable manner, the family is link to our past, bridge to our future." – Anonymous In-law</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <div class="contact-form">
+      <!-- Replace "your-formspree-id" with your actual Formspree form ID -->
+      <form id="contact-form" action="https://formspree.io/f/mdklqavy" method="POST">
+        <input type="text" id="name" name="name" placeholder="Your Name" required />
+        <input type="email" id="email" name="email" placeholder="Your Email" required />
+        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit" id="submit-btn">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Sande Family. All Rights Reserved.</p>
+    <p class="made-with-love">Made with <span class="heart-emoji">❤️</span> by DS Studio</p>
+  </footer>
+
+  <!-- Media Modal -->
+  <div class="modal" id="media-modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <img id="modal-image" src="" alt="">
+      <video id="modal-video" controls style="display: none;"></video>
+    </div>
+  </div>
+
+  <button id="back-to-top"><i class="fas fa-arrow-up"></i></button>
+
+  <!-- Notification Container -->
+  <div id="notification-container"></div>
+
+  <script>
+    // Preloader
+    window.addEventListener('load', function() {
+      const preloader = document.getElementById('preloader');
+      setTimeout(() => {
+        preloader.classList.add('hidden');
+      }, 1000);
+    });
+
+    // Theme Toggle with Local Storage
+    const themeToggle = document.querySelector('.theme-toggle');
+    const body = document.body;
+
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      body.classList.add(savedTheme);
+    }
+
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      // Save the current theme to localStorage
+      const currentTheme = body.classList.contains('dark') ? 'dark' : '';
+      localStorage.setItem('theme', currentTheme);
+    });
+
+    // Scroll Animations
+    const sections = document.querySelectorAll('section');
+
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // Search Functionality
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+
+    const searchData = [
+      { name: 'Chesang', type: 'Family Member', section: 'family-members' },
+      { name: 'Martin', type: 'Family Member', section: 'family-members' },
+      { name: 'Sophy', type: 'Family Member', section: 'family-members' },
+      { name: 'Rodgers', type: 'Family Member', section: 'family-members' },
+      { name: 'Kevin', type: 'Family Member', section: 'family-members' },
+      { name: 'Philip', type: 'Family Member', section: 'family-members' },
+      { name: 'Chedy', type: 'Family Member', section: 'family-members' },
+      { name: 'Daniel', type: 'Family Member', section: 'family-members' },
+      { name: 'Family Reunion', type: 'Event', section: 'events' },
+      { name: 'Graduation', type: 'Event', section: 'events' },
+      { name: 'Cultural Celebration', type: 'Event', section: 'events' },
+      { name: 'Family Gallery', type: 'Section', section: 'gallery' },
+      { name: 'Family Tree', type: 'Section', section: 'family-tree' },
+      { name: 'Family Quotes', type: 'Section', section: 'quotes' }
+    ];
+
+    searchInput.addEventListener('input', function() {
+      const query = this.value.toLowerCase();
+      searchResults.innerHTML = '';
+      
+      if (query.length > 1) {
+        const results = searchData.filter(item => 
+          item.name.toLowerCase().includes(query)
+        );
+        
+        if (results.length > 0) {
+          searchResults.classList.add('active');
+          results.forEach(result => {
+            const div = document.createElement('div');
+            div.textContent = `${result.name} (${result.type})`;
+            div.addEventListener('click', () => {
+              document.getElementById(result.section).scrollIntoView({ behavior: 'smooth' });
+              searchResults.classList.remove('active');
+              searchInput.value = '';
+            });
+            searchResults.appendChild(div);
+          });
+        } else {
+          searchResults.classList.remove('active');
+        }
+      } else {
+        searchResults.classList.remove('active');
+      }
+    });
+
+    // Close search results when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+        searchResults.classList.remove('active');
+      }
+    });
+
+    // Countdown Timer - Updated for November 8th, 2025
+    function updateCountdown() {
+      const targetDate = new Date('Nov 8, 2025 00:00:00').getTime();
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById('days').textContent = days.toString().padStart(2, '0');
+      document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+      document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+      document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Testimonial Slider
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const dots = document.querySelectorAll('.testimonial-dot');
+
+    function showSlide(n) {
+      slides.forEach(slide => slide.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
+      
+      currentSlide = (n + slides.length) % slides.length;
+      
+      slides[currentSlide].classList.add('active');
+      dots[currentSlide].classList.add('active');
+    }
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', function() {
+        showSlide(parseInt(this.getAttribute('data-slide')));
+      });
+    });
+
+    // Auto-advance testimonials
+    setInterval(() => {
+      showSlide(currentSlide + 1);
+    }, 5000);
+
+    // Contact Form Submission with Formspree
+    const contactForm = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const notificationContainer = document.getElementById('notification-container');
+
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Show sending state
+      submitBtn.classList.add('sending');
+      submitBtn.textContent = '';
+      
+      // Create FormData object from the form
+      const formData = new FormData(contactForm);
+      
+      // Send the form data to Formspree
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          showNotification('Message sent successfully!', 'success');
+          contactForm.reset();
+        } else {
+          throw new Error('Form submission failed');
+        }
+      })
+      .catch(error => {
+        showNotification('Failed to send message. Please try again.', 'error');
+        console.error('Error:', error);
+      })
+      .finally(() => {
+        // Reset button
+        submitBtn.classList.remove('sending');
+        submitBtn.textContent = 'Send Message';
+      });
+    });
+
+    // Function to show notification
+    function showNotification(message, type) {
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      notification.textContent = message;
+      notification.setAttribute('aria-live', 'polite');
+      
+      notificationContainer.appendChild(notification);
+      
+      // Show notification
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 100);
+      
+      // Hide and remove notification after 5 seconds
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+          notification.remove();
+        }, 400);
+      }, 5000);
+    }
+
+    // Back to Top Button
+    const backToTop = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', () => {
+      backToTop.style.display = window.scrollY > 200 ? 'block' : 'none';
+    });
+    
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Mobile Menu Toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('nav ul');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('nav ul li a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // Lazy Loading for Images
+    if ('IntersectionObserver' in window) {
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.remove('lazy');
+            imageObserver.unobserve(img);
+          }
+        });
+      });
+
+      document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+      });
+    }
+
+    // Gallery Data
+    const galleryData = [
+      {
+        name: "Mum",
+        whatsapp: "https://wa.me/0703288502",
+        instagram: "https://www.instagram.com/stellasande619",
+        media: [
+          { type: "image", src: "images/j.jpeg", caption: "Mum in the 1900s" },
+          { type: "image", src: "images/n.jpeg", caption: "Another Memory!" },
+          {type: "image", src: "images/mum.jpg", caption: "Ahaa!" },
+          { type: "video", src: "video/mum.mp4", caption: "A Celebration" }
+        ]
+      },
+      {
+        name: "Group Photo",
+        whatsapp: "https://wa.me/0797971425",
+        instagram: "https://www.instagram.com/_dan_marc_",
+        media: [
+          { type: "image", src: "images/ii.jpeg", caption: "August 2025" },
+          { type: "image", src: "images/jj.jpeg", caption: "Road Trip!" },
+          { type: "image", src: "images/ff.jpeg", caption: "Road trip" }
+        ]
+      },
+      {
+        name: "Chesang",
+        whatsapp: "https://wa.me/0725217499",
+        instagram: "https://www.instagram.com/zennahsande",
+        media: [
+          { type: "image", src: "images/CHESANG.jpg", caption: "With Kids!" },
+          { type: "image", src: "images/o.jpeg", caption: "1900s!" },
+          { type: "image", src: "images/rein.jpg", caption: "Outside!" },
+          { type: "image", src: "images/reyzer 1.jpg", caption: "Reyzer" }
+        ]
+      },
+      {
+        name: "Martin",
+        whatsapp: "https://wa.me/0797971425",
+        instagram: "https://instagram.com/sn-metit",
+        media: [
+          { type: "image", src: "images/Martin.jpeg", caption: "🙂The best😎" },
+        ]
+      },
+      {
+        name: "Sophy",
+        whatsapp: "https://wa.me/0702836939",
+        instagram: "https://www.instagram.com/sandesophy",
+        media: [
+          { type: "image", src: "images/v.jpeg", caption: "Sharp!" },
+          { type: "image", src: "images/t.jpeg", caption: "Random day" },
+          { type: "image", src: "images/m.jpeg", caption: "2000s! &#128514; &#128514;" }
+        ]
+      },
+      {
+        name: "Rodgers",
+        whatsapp: "https://wa.me/0721859015",
+        instagram: "https://www.instagram.com/kiplimos",
+        media: [
+          { type: "image", src: "images/limo 2.jpg", caption: "Road trip" },
+          { type: "image", src: "images/kayla.jpg", caption: "Kayla" },
+          { type: "image", src: "images/kayla 1.jpg", caption: "Smiley Kayla" }
+        ]
+      },
+      {
+        name: "Kevin",
+        whatsapp: "https://wa.me/0721416018",
+        instagram: "https://www.instagram.com/kevinhosunday",
+        media: [
+          { type: "image", src: "images/kevin.jpeg", caption: "Mr. Kevin" },
+          { type: "image", src: "images/andy.jpg", caption: "Andy" }
+        ]
+      },
+      {
+        name: "Philip",
+        whatsapp: "https://wa.me/0703288502",
+        instagram: "https://www.instagram.com/sandephilip",
+        media: [
+          { type: "image", src: "images/p.jpeg", caption: "1900s!" }, 
+          { type: "image", src: "images/y.jpeg", caption: "Outside!" }, 
+          { type: "image", src: "images/z.jpeg", caption: "Church session!" },
+          { type: "image", src: "images/h.jpeg", caption: "Taraji" }
+        ]
+      },
+      {
+        name: "Chedy",
+        whatsapp: "https://wa.me/0705264775",
+        instagram: "https://www.instagram.com/chedy.sharon",
+        media: [
+          { type: "image", src: "images/Chedy.jpg", caption: "Congratulations!" },
+          { type: "image", src: "images/a.jpeg", caption: "Funny moment &#128514;" },
+          { type: "image", src: "images/c.jpeg", caption: "The family model!" },
+          { type: "image", src: "images/b.jpeg", caption: "In the museum" }
+        ]
+      },
+      {
+        name: "Daniel",
+        whatsapp: "https://wa.me/0797971425",
+        instagram: "https://www.instagram.com/_dan_marc_",
+        media: [
+          { type: "image", src: "images/graduation.jpg", caption: "Congratulations!" },
+          { type: "image", src: "images/i.jpeg", caption: "Outdoor" },
+          { type: "image", src: "images/s.jpeg", caption: "Smiley" },
+          { type: "image", src: "images/g.jpeg", caption: "&#128514; &#128514; &#128514;" }
+        ]
+      }
+    ];
+
+    // Gallery functionality
+    const galleryStacks = document.getElementById('gallery-stacks');
+    const mediaModal = document.getElementById('media-modal');
+    const modalImage = document.getElementById('modal-image');
+    const modalVideo = document.getElementById('modal-video');
+    const modalClose = document.querySelector('.modal-close');
+
+    // Initialize gallery
+    function initGallery() {
+      renderGalleryStacks(galleryData);
+      setupEventListeners();
+    }
+
+    // Render gallery stacks
+    function renderGalleryStacks(data) {
+      galleryStacks.innerHTML = '';
+      
+      data.forEach(member => {
+        const stack = document.createElement('div');
+        stack.className = `stack`;
+        stack.dataset.name = member.name.toLowerCase();
+        
+        stack.innerHTML = `
+          <div class="stack-header">
+            <h3>${member.name}</h3>
+            <div class="stack-socials">
+              <a href="${member.whatsapp}" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+              <a href="${member.instagram}" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+          <div class="stack-content">
+            <div class="stack-items">
+              ${member.media.map((item, index) => `
+                <div class="stack-item ${item.type}" data-index="${index}">
+                  ${item.type === 'image' 
+                    ? `<img src="${item.src}" alt="${item.caption}" loading="lazy">`
+                    : `<div class="video-thumbnail"><img src="${item.thumbnail}" alt="${item.caption}" loading="lazy"></div>`
+                  }
+                  <div class="stack-item-caption">${item.caption}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+        
+        galleryStacks.appendChild(stack);
+      });
+      
+      // Add expand functionality
+      document.querySelectorAll('.stack-header').forEach(header => {
+        header.addEventListener('click', function() {
+          const stack = this.parentElement;
+          stack.classList.toggle('expanded');
+        });
+      });
+      
+      // Add media click functionality
+      document.querySelectorAll('.stack-item').forEach(item => {
+        item.addEventListener('click', function() {
+          const stack = this.closest('.stack');
+          const memberName = stack.dataset.name;
+          const member = data.find(m => m.name.toLowerCase() === memberName);
+          const index = parseInt(this.dataset.index);
+          const mediaItem = member.media[index];
+          
+          if (mediaItem.type === 'image') {
+            modalImage.src = mediaItem.src;
+            modalImage.alt = mediaItem.caption;
+            modalImage.style.display = 'block';
+            modalVideo.style.display = 'none';
+          } else {
+            modalVideo.src = mediaItem.src;
+            modalVideo.poster = mediaItem.thumbnail;
+            modalVideo.controls = true;
+            modalVideo.style.display = 'block';
+            modalImage.style.display = 'none';
+          }
+          
+          mediaModal.classList.add('active');
+        });
+      });
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      // Modal close
+      modalClose.addEventListener('click', function() {
+        mediaModal.classList.remove('active');
+        modalVideo.pause();
+      });
+      
+      // Close modal when clicking outside
+      mediaModal.addEventListener('click', function(e) {
+        if (e.target === mediaModal) {
+          mediaModal.classList.remove('active');
+          modalVideo.pause();
+        }
+      });
+    }
+
+    // Initialize the gallery when the page loads
+    document.addEventListener('DOMContentLoaded', initGallery);
+  </script>
+</body>
+</html>
